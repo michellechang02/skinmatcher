@@ -73,7 +73,7 @@ import {
         <Box  as="nav" bg="bg-surface" boxShadow="sm">
           <Divider borderWidth = "10"/>
             <HStack spacing="10" justifyContent="center">
-              <Button variant="ghost" onClick={() => navigate('/cart')} mt = {1} mr={10} _hover={{ bg: 'transparent' }} fontFamily = "Roboto" fontWeight = "light"><t>Take the Quiz</t></Button>
+              <Button variant="ghost" onClick={() => navigate('/quiz')} mt = {1} mr={10} _hover={{ bg: 'transparent' }} fontFamily = "Roboto" fontWeight = "light"><t>Take the Quiz</t></Button>
               <Button variant="ghost" onClick={() => navigate('/cart')} mt = {1} mr={10} _hover={{ bg: 'transparent' }} fontFamily = "Roboto" fontWeight = "light"><t>Products</t></Button>
               <Button variant="ghost" onClick={() => navigate('/cart')} mt = {1} mr={10} _hover={{ bg: 'transparent' }} fontFamily = "Roboto" fontWeight = "light"><t>Compare</t></Button>
               <Button variant="ghost" onClick={() => navigate('/cart')} mt = {1} mr={10} _hover={{ bg: 'transparent' }} fontFamily = "Roboto" fontWeight = "light"><t>Browse</t></Button>
