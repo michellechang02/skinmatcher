@@ -36,14 +36,14 @@ import {
       setUser(null);
       navigate('/login');
     };
+
   
     return (
       <Box as="nav" bg="bg-surface" boxShadow="sm">
         <Flex>
-          <Flex marginEnd={10}>
-          <img src="/static/media/Logo.bc46533bbdf7b1e13a05.png" width="150px" alt="Logo" />
-          </Flex>
-        <InputGroup mt={10}>
+          <img src="/static/media/Logo.bc46533bbdf7b1e13a05.png" width="70px" alt="Logo" style={{"marginLeft":"5px"}}
+          onClick={() => navigate('/')}/>
+        <InputGroup mt={5} mb={2} ml={2}>
           <Input
             placeholder="Search..."
             value={searchQuery}
