@@ -82,7 +82,7 @@ function TaketheQuiz(props) {
                 defaultValue={50}
                 min={0}
                 max={100}
-                onChange={(val) => setColorValue(val)}
+                onChange={(val) => setDrynessValue(val)}
                 ml={5}
                 width="400px"
             >
