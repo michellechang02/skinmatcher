@@ -6,6 +6,7 @@ import Navbar from './components/Navbar';
 import LandingPage from './components/LandingPage';
 import TaketheQuiz from './components/TaketheQuiz';
 import CheckoutPage from './components/CheckoutPage';
+import Profile from './components/Profile';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/quiz" element={<TaketheQuiz />} />
           <Route path="/checkout" element={<CheckoutPage />} />
+          <Route path="/profile" element={<Profile />} />
         </Routes>
       </div>
     </ChakraProvider>
