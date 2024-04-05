@@ -1,8 +1,10 @@
 import React from 'react';
 import {Box, VStack, Text, Button} from '@chakra-ui/react';
 import sohee from '../images/sohee.jpg'
+import { useNavigate } from 'react-router-dom';
 
 function LandingPage(props) {
+  const navigate = useNavigate();
     return (
         <div>
             <Box display="flex" justifyContent="space-between" p="5" alignItems="flex-start">
@@ -139,6 +141,7 @@ function LandingPage(props) {
         marginTop="auto" // Pushes the button to the bottom
         width="full" // Makes the button as wide as its parent container
         alignSelf="stretch" // Ensures it stretches to match the parent width
+        onClick={() => navigate('/quiz')}
       >
         Start
       </Button>
