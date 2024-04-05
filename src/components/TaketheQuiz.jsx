@@ -43,17 +43,17 @@ function TaketheQuiz(props) {
         <HStack spacing={4} ml={5} mr={5} mt={1}>
       <Box w="500px" h="auto" bg="#F5F5F5" borderRadius="lg" padding={5}>
         <VStack spacing={4}>
-            <Box w="200px" h="100px" bg="tomato" borderRadius="lg">
+            <Box w="200px" h="100px" bg="grey" borderRadius="lg">
                 <Text color="white" p={4}>Find what you want</Text>
             </Box>
-            <Box w="200px" h="100px" bg="skyblue" borderRadius="lg">
+            <Box w="200px" h="100px" bg="grey" borderRadius="lg">
                 <Text color="white" p={4}>Gift for Others</Text>
             </Box>
-            <Box w="200px" h="100px" bg="green.200" borderRadius="lg">
+            <Box w="200px" h="100px" bg="grey" borderRadius="lg">
                 <Text color="white" p={4}>Your Daily Routine</Text>
             </Box>
-            <Box w="200px" h="100px" bg="yellow.200" borderRadius="lg">
-                <Text color="black" p={4}>Color Analysis</Text>
+            <Box w="200px" h="100px" bg="grey" borderRadius="lg">
+                <Text color="white" p={4}>Color Analysis</Text>
             </Box>
         </VStack>
       </Box>
