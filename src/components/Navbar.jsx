@@ -58,16 +58,14 @@ import {
           </InputRightElement>
         </InputGroup>
           <Flex justify="space-between" flex="1">
-            {user && (
-              <ButtonGroup variant="link" spacing="8">
-                <Button key="Home" onClick={() => navigate('/')}>Home</Button>
-                <Button key="Logout" onClick={handleLogout}>Logout</Button>
-              </ButtonGroup>
-            )}
             <HStack spacing="3">
               <Button variant="ghost" onClick={() => navigate('/checkout')} leftIcon={<img src={cart} alt="Cart" width="42px" height="42px" />} mt = {1} mr={10} _hover={{ bg: 'transparent' }}/>
-              <Button variant="ghost" onClick={() => navigate('/login')} leftIcon={<img src={profile} alt="Login" width="40px" height="40px" />} mr={10} _hover={{ bg: 'transparent' }}/>
-            </HStack>
+              {user ? 
+              <Button variant="ghost" onClick={() => navigate('/profile')} leftIcon={<img src={profile} alt="Profile" width="40px" height="40px" />} mr={10} _hover={{ bg: 'transparent' }}/>
+              : <Button variant="ghost" onClick={() => navigate('/login')} leftIcon={<img src={profile} alt="Login" width="40px" height="40px" />} mr={10} _hover={{ bg: 'transparent' }}/>
+              
+            }
+              </HStack>
           </Flex>
         </Flex>
         <Box  as="nav" bg="bg-surface" boxShadow="sm">
