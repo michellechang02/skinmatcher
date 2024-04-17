@@ -1,9 +1,8 @@
 import {createClient} from "@supabase/supabase-js"
 
-
 export const supabase = createClient(
-    env.url,
-    env.secretKey,
+    "URL",
+    "KEY",
     {
         auth: {
             autoRefreshToken: true,
