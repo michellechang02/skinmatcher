@@ -23,4 +23,26 @@
       transform: translateX(-100%);
     }
   }
+
+
+  .circle {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin: 5px;
+    transition: background-color 0.5s ease-in-out;
+  }
+  
+  .unseen {
+    background-color: gray;
+  }
+  
+  .green {
+    background-color: green;
+  }
+  
+  .light-green {
+    background-color: lightgreen;
+  }
+  
   

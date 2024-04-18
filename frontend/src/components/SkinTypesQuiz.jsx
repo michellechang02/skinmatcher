@@ -8,12 +8,15 @@ import {
   VStack,
   Slide,
   HStack,
+  Image,
   Progress,
 } from "@chakra-ui/react";
 import "./SkinTypeQuiz.css";
+import data from "../data.json";
 
 const SkinTypeQuiz = () => {
   const [selectedOptions, setSelectedOptions] = useState([]);
+  const [recommended, setRecommended] = useState([]);
   const [slideDirection, setSlideDirection] = useState("left");
   const titleList = [
     "Assess your skin moisturization needs",
@@ -21,14 +24,19 @@ const SkinTypeQuiz = () => {
     "Assess your skin's underlying inflammation",
     "Lifestyle habits",
     "Suncare Habits",
+    "Check all the following concerns that you would like to address",
+    "Let's help you find the right sunscreen",
+    "Help us color match your sunscreen",
   ];
   const questionList = [
     "Please check all that are true about how often you must use a moisturizer for your skin to feel hydrated. (Multiple answers are preferred.)",
     "Please check all that are true about your facial skin. (Multiple answers are preferred.)",
-    "Do you want to lighten dark spots on your skin?",
-    "Do you want skin lighteners in your skin care products to treat hyper pigmentation? (Choose one answer)",
+    "Check all the following that you have had in the last 4 weeks: (Multiple answers allowed)",
     "Check all that apply to you. (Multiple answers allowed)",
     "Check all that apply to you. (Multiple answers allowed)",
+    "If you have any other issues you would like us to recommend products for, please select them here. You can scroll down and select 'None of the above' if nothing applies",
+    "The most important step to prevent aging is wearing sunscreen on a daily basis and re-applying through the day, even when indoors.",
+    "What tint of daily facial sunscreen do you prefer?",
   ];
   const answersList = [
     [
@@ -37,7 +45,6 @@ const SkinTypeQuiz = () => {
       "I never or only occasionally apply a moisturizer.",
       "I apply a moisturizer to my face once a day.",
       "I apply a moisturizer to my face twice a day.",
-      "Check all the following that you have had in the last 4 weeks: (Multiple answers allowed)",
     ],
     [
       "My facial skin is rough or dry.",
@@ -56,11 +63,6 @@ const SkinTypeQuiz = () => {
       "None of the above",
     ],
     [
-      "My skin pigment is uneven AND I want to lighten darker areas on my face",
-      "My skin pigment is even AND I have no dark spots or darker areas",
-      "I have freckles or dark spots AND I do not want to remove",
-    ],
-    [
       "I am exposed to second hand smoke on a weekly basis.",
       "I currently smoke cigarettes or cigars",
       "I often get less than 7 hours of sleep a night.",
@@ -70,9 +72,53 @@ const SkinTypeQuiz = () => {
       "I do not eat fruit or vegetables every day.",
       "None of the above",
     ],
+    [
+      "I have been to a tanning bed more than 3 times in my life.",
+      "I am exposed to the sun for over 3 hours a week.",
+      "I spend over 3 hrs/wk near a window during daylight (including driving).",
+      "My face has been sunburned and peeled more than twice in my life.",
+      "I do not take daily antioxidant supplements like vitamin E and C.",
+      "One of my parents has more wrinkles than others their age.",
+      "I do not wear sunscreen every day",
+      "I do not wear sunscreen during outdoor activities",
+      "None of the above",
+    ],
+    [
+      "Dandruff or itching/flaking scalp",
+      "Dry skin",
+      "Eczema",
+      "Hair loss or thinning hair",
+      "Psoriasis",
+      "Shaving irritation",
+      "Acne Scars",
+      "Broken blood vessels on face or body",
+      "Cellulite",
+      "Loss of fullness",
+      "Sagging skin",
+      "Stretch marks",
+      "Wrinkles",
+      "None of the above",
+    ],
+    [
+      "Chemical Block (Less White)",
+      "Chemical Free Physical Block (Zinc Oxide, May Be White)",
+      "No Preference",
+    ],
+    ["Tinted (Has Color)", "Untinted (White Or Clear)", "No Preference"],
   ];
 
   const [currentIndex, setIndex] = useState(0);
+
+  const [questionStates, setQuestionStates] = useState([
+    "green",
+    "unseen",
+    "unseen",
+    "unseen",
+    "unseen",
+    "unseen",
+    "unseen",
+    "unseen",
+  ]);
 
   const handleOptionChange = (option) => {
     const isSelected = selectedOptions.includes(option);
@@ -86,9 +132,17 @@ const SkinTypeQuiz = () => {
   const handleContinue = () => {
     setSlideDirection("slide-out");
     setTimeout(() => {
-      setIndex(currentIndex + 1);
       setSlideDirection("slide-in");
       setSelectedOptions([]);
+
+      const updatedStates = [...questionStates];
+      updatedStates[currentIndex + 1] = "green";
+      for (let i = 0; i < currentIndex + 1; i++) {
+        updatedStates[i] = "light-green";
+      }
+      setIndex(currentIndex + 1);
+
+      setQuestionStates(updatedStates);
     }, 500);
   };
   const [slideProgress, setSlideProgress] = useState(0);
@@ -111,36 +165,104 @@ const SkinTypeQuiz = () => {
     return () => {
       window.removeEventListener("resize", handleSlideProgress);
     };
-  });
+  }, []);
 
-  const buttonOpacity =
-    slideDirection === "slide-out" && slideProgress > 0.25 ? 0 : 1;
+  const buttonOpacity = slideDirection === "slide-out" ? 0 : 1;
 
   function displayQuestions(index) {
+    console.log(index);
     const answers = answersList[index];
-    return answers.map((answer, i) => {
-      //Start i at 1
+
+    // Calculate the number of answers per column based on the total number of answers
+
+    const columns = Math.ceil(answers.length / 6);
+    const answersPerColumn = Math.ceil(answers.length / columns);
+
+    // Create an array of buttons for each column
+    const buttons = answers.map((answer, i) => (
+      <Button
+        backgroundColor={
+          selectedOptions.includes("option" + i) ? "lightgreen" : "whitesmoke"
+        }
+        _hover={{
+          backgroundColor: "lightgreen",
+          borderColor: "green",
+        }}
+        onClick={() => handleOptionChange("option" + i)}
+        borderRadius="md"
+        borderColor={selectedOptions.includes("option" + i) ? "green" : "grey"}
+        borderWidth={1.5}
+        px={4}
+        py={6}
+        width={answers.length > 6 ? "100%" : "700px"}
+        style={{ opacity: buttonOpacity }}
+      >
+        <Text color="black">{answer}</Text>
+      </Button>
+    ));
+
+    if (answers.length > 6) {
       return (
-        <Button
-          colorScheme={
-            selectedOptions.includes("option" + i) ? "green" : "blue"
-          }
-          onClick={() => handleOptionChange("option" + i)}
-          borderRadius="md"
-          px={4}
-          py={6}
-          width="100%"
-          style={{ opacity: buttonOpacity }}
-        >
-          {answer}
-        </Button>
+        <HStack spacing={3}>
+          {Array(columns)
+            .fill()
+            .map((_, i) => (
+              <VStack key={i}>
+                {buttons.slice(
+                  i * answersPerColumn,
+                  (i + 1) * answersPerColumn
+                )}
+              </VStack>
+            ))}
+        </HStack>
       );
-    });
+    }
+
+    // Render buttons in a single column if there are 6 or fewer answers
+    return <VStack spacing={4}>{buttons}</VStack>;
   }
 
+  function getRec() {
+    const productNumber = Math.floor(Math.random() * data.length);
+    setRecommended(data[productNumber]);
+    // return (
+    //   <Box flex="1" height="100%">
+    //     <Image mt={5} ml={5} src={recommended.url} alt="Dan Abramov" />
+    //   </Box>
+    // );
+  }
+
+  useEffect(() => {
+    if (currentIndex === 8) {
+      getRec();
+    }
+  }, [currentIndex]);
+
+  //   function displayProgressCircles() {
+  //     const circles = [];
+  //     for (let i = 0; i < 6; i++) {
+  //       circles.push(
+  //         <Box
+  //           key={i}
+  //           w="50px" // Width of the circle
+  //           h="50px" // Height of the circle
+  //           borderRadius="50%" // Makes the box shape circular
+  //           bg={
+  //             i > currentIndex
+  //               ? "gray"
+  //               : i === currentIndex
+  //               ? "green"
+  //               : "light-green"
+  //           } // Background color based on condition
+  //         />
+  //       );
+  //     }
+  //     return circles;
+  //   }
+
   return (
-    <HStack ml={5} mr={5} mt={1}>
-      <Box>
+    <HStack ml={5} mr={5} w="100%">
+      <Box mt={-14} w="100%">
         <Text mb={4}>{titleList[currentIndex]}</Text>
         <Text mb={4}>{questionList[currentIndex]}</Text>
         <CheckboxGroup
@@ -153,27 +275,53 @@ const SkinTypeQuiz = () => {
             className={slideDirection}
             style={{ zIndex: 0 }}
           >
-            {displayQuestions(currentIndex)}
+            {" "}
+            {currentIndex < 8 ? (
+              <CheckboxGroup
+                colorScheme="green"
+                value={selectedOptions}
+                onChange={(values) => setSelectedOptions(values)}
+              >
+                <VStack
+                  position="relative"
+                  className={slideDirection}
+                  style={{ zIndex: 0 }}
+                >
+                  {displayQuestions(currentIndex)}
+                </VStack>
+              </CheckboxGroup>
+            ) : (
+              <Box flex="1" height="100%">
+                {recommended && (
+                  <Image
+                    mt={5}
+                    ml={5}
+                    src={recommended.url}
+                    alt="Recommended Product"
+                  />
+                )}
+              </Box>
+            )}
           </VStack>
         </CheckboxGroup>
-        <Button
-          colorScheme="pink"
-          onClick={handleContinue}
-          borderRadius={"25px"}
-          mt={"30px"}
-        >
-          CONTINUE
-        </Button>
+        {currentIndex < 8 && (
+          <Button
+            position="absolute"
+            colorScheme="pink"
+            onClick={handleContinue}
+            borderRadius={"25px"}
+            mt={"30px"}
+          >
+            {currentIndex < 7 ? "CONTINUE" : "SUBMIT"}
+          </Button>
+        )}
       </Box>
-      <Progress
-        w="20vh"
-        h="60vh"
-        colorScheme="pink"
-        value={(currentIndex + 1) * (100 / questionList.length)}
-        zIndex={1}
-        borderRadius={0}
-        borderWidth={10}
-      />
+      <VStack ml={4} spacing={4} style={{ zIndex: 1 }}>
+        {questionStates.map((state, index) => (
+          <Box key={index} className={`circle ${state}`} />
+        ))}
+        /
+      </VStack>
     </HStack>
   );
 };
