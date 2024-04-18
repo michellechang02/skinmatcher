@@ -78,7 +78,14 @@ function TaketheQuiz(props) {
         Quiz
       </Text>
       <HStack spacing={4} ml={5} mr={5} mt={1}>
-        <Box w="500px" h="auto" bg="#F5F5F5" borderRadius="lg" padding={5}>
+        <Box
+          w="240px"
+          h="auto"
+          bg="#F5F5F5"
+          borderRadius="lg"
+          padding={5}
+          style={{ zIndex: 1, flex: "none" }}
+        >
           <VStack spacing={4}>
             <Button
               w="200px"
