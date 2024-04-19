@@ -16,7 +16,16 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: '16'
+
+    # Change directory to 'frontend'
+    - name: Change to frontend directory
+      run: cd frontend
+
     - name: Install Dependencies
       run: npm install
+      working-directory: frontend
+
     - name: Build
       run: CI=false npm run build
+      working-directory: frontend
+
