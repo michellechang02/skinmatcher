@@ -1,38 +1,39 @@
-name: CI
+name: Frontend CI/CD
 
 on:
   push:
-    branches: [ main ]
+    branches: [ '**' ]
+    paths:
+      - 'frontend/**'
   pull_request:
     branches: [ main ]
+    paths:
+      - 'frontend/**'
 
 jobs:
-  build:
+  build_and_test:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js 16
-      uses: actions/setup-node@v2
+    - uses: actions/checkout@v3
+    - name: Use Node.js 18
+      uses: actions/setup-node@v3
       with:
-        node-version: '16'
-
-    - name: Clear npm cache
-      run: npm cache clean --force
-      working-directory: frontend
-
-    - name: Install Dependencies
+        node-version: 18
+    - name: Install dependencies
+      working-directory: ./frontend
       run: npm install
-      working-directory: frontend
-
-    - name: List installed packages
-      run: npm list
-      working-directory: frontend
-
-    - name: Print working directory
-      run: pwd
-      working-directory: frontend
 
     - name: Build
-      run: CI=false npm run build
-      working-directory: frontend
+      working-directory: ./frontend
+      run: npm run build
+      # Builds your application, make sure you have a build script in your package.json
+  
+  deploy:
+    needs: build_and_test
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v1
