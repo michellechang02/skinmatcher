@@ -17,15 +17,22 @@ jobs:
       with:
         node-version: '16'
 
-    # Change directory to 'frontend'
-    - name: Change to frontend directory
-      run: cd frontend
+    - name: Clear npm cache
+      run: npm cache clean --force
+      working-directory: frontend
 
     - name: Install Dependencies
       run: npm install
       working-directory: frontend
 
+    - name: List installed packages
+      run: npm list
+      working-directory: frontend
+
+    - name: Print working directory
+      run: pwd
+      working-directory: frontend
+
     - name: Build
       run: CI=false npm run build
       working-directory: frontend
-
