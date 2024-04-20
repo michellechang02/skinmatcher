@@ -20,20 +20,37 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: 18
+
+    - name: Clear npm cache
+      working-directory: ./frontend
+      run: npm cache clean --force
+
     - name: Install dependencies
       working-directory: ./frontend
       run: npm install
 
+    - name: List installed packages
+      working-directory: ./frontend
+      run: npm list
+
+    - name: Print working directory
+      working-directory: ./frontend
+      run: pwd
+
     - name: Build
       working-directory: ./frontend
       run: npm run build
-      # Builds your application, make sure you have a build script in your package.json
-  
+
   deploy:
     needs: build_and_test
     runs-on: ubuntu-latest
+
     steps:
     - uses: actions/checkout@v3
 
     - name: Setup Node.js
-      uses: actions/setup-node@v1
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18
+
+    # Add deployment steps here according to your deployment needs
