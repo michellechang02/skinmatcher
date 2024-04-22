@@ -1,5 +1,6 @@
 import React from 'react';
-import { ChakraProvider, Box, Flex, Text, Image} from '@chakra-ui/react';
+import { ChakraProvider, Box, Flex, Text, Image, Input, HStack, VStack, Button,
+    FormControl, FormLabel} from '@chakra-ui/react';
 import home from '../home.json'
 
 function Compare(props) {
@@ -8,6 +9,35 @@ function Compare(props) {
             <Text ml={5} fontSize="5xl" mt={5}>
         Compare
       </Text>
+      <Flex justifyContent="space-around" alignItems="center">
+        <Box w="400px" h="100px" bg="white" mt={2} mb={1}>
+          <VStack spacing={2} align="stretch">
+            <Text>Product 1:</Text>
+            <HStack>
+              <Input placeholder="Enter details for Product 1" />
+              <Button colorScheme="blackAlpha">Add</Button>
+            </HStack>
+          </VStack>
+        </Box>
+        <Box w="400px" h="100px" bg="white" mt={2} mb={1}>
+          <VStack spacing={2} align="stretch">
+            <Text>Product 2:</Text>
+            <HStack>
+              <Input placeholder="Enter details for Product 2" />
+              <Button colorScheme="blackAlpha">Add</Button>
+            </HStack>
+          </VStack>
+        </Box>
+        <Box w="400px" h="100px" bg="white" mt={2} mb={1}>
+          <VStack spacing={2} align="stretch">
+            <Text>Product 3:</Text>
+            <HStack>
+              <Input placeholder="Enter details for Product 3" />
+              <Button colorScheme="blackAlpha">Add</Button>
+            </HStack>
+          </VStack>
+        </Box>
+      </Flex>
             <Flex justifyContent="space-around" alignItems="center">
         <Box  w="400px" h="550px"  bg="#F5F5F5" boxShadow="md" mt={2}>
             <Text textAlign="center" mt={2} fontSize="40px">Product 1</Text>
