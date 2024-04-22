@@ -1,7 +1,8 @@
 import React from 'react';
-import {Box, VStack, Text, Button} from '@chakra-ui/react';
+import {Box, VStack, Text, Button, Image} from '@chakra-ui/react';
 import sohee from '../images/sohee.jpg'
 import { useNavigate } from 'react-router-dom';
+import home from '../home.json';
 
 function LandingPage(props) {
   const navigate = useNavigate();
@@ -36,7 +37,13 @@ function LandingPage(props) {
             justifyContent="center"
             boxShadow="base"
           >
-            {`Box ${index + 1}`}
+            <Image
+              src={home[index].url}
+              alt={`Box image ${index + 1}`}
+              width="100%"
+              height="100%"
+              objectFit="cover"
+            />
           </Box>
         ))}
       </Box>
@@ -69,7 +76,13 @@ function LandingPage(props) {
             justifyContent="center"
             boxShadow="base"
           >
-            {`Box ${index + 1}`}
+           <Image
+              src={home[index + 5].url}
+              alt={`Box image ${index + 6}`}
+              width="100%"
+              height="100%"
+              objectFit="cover"
+            />
           </Box>
         ))}
       </Box>
@@ -102,7 +115,13 @@ function LandingPage(props) {
             justifyContent="center"
             boxShadow="base"
           >
-            {`Box ${index + 1}`}
+            <Image
+              src={home[index + 10].url}
+              alt={`Box image ${index + 11}`}
+              width="100%"
+              height="100%"
+              objectFit="cover"
+            />
           </Box>
         ))}
       </Box>

@@ -182,15 +182,15 @@ const SkinTypeQuiz = () => {
     const buttons = answers.map((answer, i) => (
       <Button
         backgroundColor={
-          selectedOptions.includes("option" + i) ? "lightgreen" : "whitesmoke"
+          selectedOptions.includes("option" + i) ? "beige" : "whitesmoke"
         }
         _hover={{
-          backgroundColor: "lightgreen",
-          borderColor: "green",
+          backgroundColor: "beige",
+          borderColor: "brown",
         }}
         onClick={() => handleOptionChange("option" + i)}
         borderRadius="md"
-        borderColor={selectedOptions.includes("option" + i) ? "green" : "grey"}
+        borderColor={selectedOptions.includes("option" + i) ? "beige" : "grey"}
         borderWidth={1.5}
         px={4}
         py={6}
@@ -307,7 +307,7 @@ const SkinTypeQuiz = () => {
         {currentIndex < 8 && (
           <Button
             position="absolute"
-            colorScheme="pink"
+            colorScheme="blackAlpha"
             onClick={handleContinue}
             borderRadius={"25px"}
             mt={"30px"}
