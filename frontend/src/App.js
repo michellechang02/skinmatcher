@@ -8,6 +8,8 @@ import TaketheQuiz from './components/TaketheQuiz';
 import CheckoutPage from './components/CheckoutPage';
 import Profile from './components/Profile';
 import Login from './components/Login';
+import Products from './components/Products';
+import Compare from './components/Compare';
 
 function App() {
   return (
@@ -21,6 +23,8 @@ function App() {
           <Route path="/checkout" element={<CheckoutPage />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/compare" element={<Compare />} />
+          <Route path="/products" element={<Products />} />
         </Routes>
       </div>
     </ChakraProvider>
