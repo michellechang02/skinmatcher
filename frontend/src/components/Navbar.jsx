@@ -41,8 +41,12 @@ import {
     return (
       <Box as="nav" bg="bg-surface" boxShadow="sm">
         <Flex>
+  
           <img src="/static/media/Logo.bc46533bbdf7b1e13a05.png" width="70px" alt="Logo" style={{"marginLeft":"5px"}}
           onClick={() => navigate('/')}/>
+          <Button variant="ghost" onClick={() => navigate('/quiz')} ml={10} mt = {5} mr={10} _hover={{ bg: 'transparent' }} fontFamily = "Roboto" fontWeight = "light"><t>Take the Quiz</t></Button>
+        <Button variant="ghost" onClick={() => navigate('/compare')} mt = {5} mr={10} _hover={{ bg: 'transparent' }} fontFamily = "Roboto" fontWeight = "light"><t>Compare</t></Button>
+        <Button variant="ghost" onClick={() => navigate('/compare')} mt = {5} mr={10} _hover={{ bg: 'transparent' }} fontFamily = "Roboto" fontWeight = "light"><t>Products</t></Button>
         <InputGroup mt={5} mb={2} ml={2}>
           <Input
             placeholder="Search..."
@@ -56,7 +60,9 @@ import {
               Search
             </Button>
           </InputRightElement>
+
         </InputGroup>
+        
           <Flex justify="space-between" flex="1">
             <HStack spacing="3">
               <Button variant="ghost" onClick={() => navigate('/checkout')} leftIcon={<img src={cart} alt="Cart" width="42px" height="42px" />} mt = {1} mr={10} _hover={{ bg: 'transparent' }}/>
@@ -68,18 +74,6 @@ import {
               </HStack>
           </Flex>
         </Flex>
-        <Box  as="nav" bg="bg-surface" boxShadow="sm">
-          <Divider borderWidth = "10"/>
-            <HStack spacing="10" justifyContent="center">
-              <Button variant="ghost" onClick={() => navigate('/quiz')} mt = {1} mr={10} _hover={{ bg: 'transparent' }} fontFamily = "Roboto" fontWeight = "light"><t>Take the Quiz</t></Button>
-              <Button variant="ghost" onClick={() => navigate('/cart')} mt = {1} mr={10} _hover={{ bg: 'transparent' }} fontFamily = "Roboto" fontWeight = "light"><t>Products</t></Button>
-              <Button variant="ghost" onClick={() => navigate('/cart')} mt = {1} mr={10} _hover={{ bg: 'transparent' }} fontFamily = "Roboto" fontWeight = "light"><t>Compare</t></Button>
-              <Button variant="ghost" onClick={() => navigate('/cart')} mt = {1} mr={10} _hover={{ bg: 'transparent' }} fontFamily = "Roboto" fontWeight = "light"><t>Browse</t></Button>
-              <Button variant="ghost" onClick={() => navigate('/cart')} mt = {1} mr={10} _hover={{ bg: 'transparent' }} fontFamily = "Roboto" fontWeight = "light"><t>Cleanser</t></Button>
-              <Button variant="ghost" onClick={() => navigate('/cart')} mt = {1} mr={10} _hover={{ bg: 'transparent' }} fontFamily = "Roboto" fontWeight = "light"><t>Sunscreen</t></Button>
-              <Button variant="ghost" onClick={() => navigate('/cart')} mt = {1} mr={10} _hover={{ bg: 'transparent' }} fontFamily = "Roboto" fontWeight = "light"><t>Other</t></Button>
-            </HStack>
-          </Box>
       </Box>
     );
   }
