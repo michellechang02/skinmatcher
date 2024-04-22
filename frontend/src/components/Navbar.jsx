@@ -46,7 +46,9 @@ import {
           onClick={() => navigate('/')}/>
           <Button variant="ghost" onClick={() => navigate('/quiz')} ml={10} mt = {5} mr={10} _hover={{ bg: 'transparent' }} fontFamily = "Roboto" fontWeight = "light"><t>Take the Quiz</t></Button>
         <Button variant="ghost" onClick={() => navigate('/compare')} mt = {5} mr={10} _hover={{ bg: 'transparent' }} fontFamily = "Roboto" fontWeight = "light"><t>Compare</t></Button>
+
         <Button variant="ghost" onClick={() => navigate('/products')} mt = {5} mr={10} _hover={{ bg: 'transparent' }} fontFamily = "Roboto" fontWeight = "light"><t>Products</t></Button>
+
         <InputGroup mt={5} mb={2} ml={2}>
           <Input
             placeholder="Search..."
