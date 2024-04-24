@@ -24,6 +24,7 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/login" element={<Login />} />
           <Route path="/compare" element={<Compare />} />
+          <Route path="/profile" element={<Profile />} />
           <Route path="/products" element={<Products />} />
         </Routes>
       </div>
