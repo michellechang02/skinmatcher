@@ -1,4 +1,5 @@
 const express = require('express');
+const fs = require('fs');
 const app = express();
 const port = 8000;
 
@@ -14,11 +15,22 @@ app.get('/', (req, res) => {
 });
 
 
+
+fs.readFile('data.json', (err, data) => {
+  if (err) throw err;
+  
+  // Parse the JSON data
+  const users = JSON.parse(data);
+  
+  // Continue to work with the JSON data
+  console.log(users);
+});
+
 // All routes
 
 // Login
 app.post('/login', (req, res) => {
-  const {username, password } = req.body;
+  const { username, password } = req.body;
 
   try {
 

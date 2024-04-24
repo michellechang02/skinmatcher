@@ -11,7 +11,16 @@ import {
     TableContainer, Text
   } from '@chakra-ui/react'
 
+  import product from '../products.json'
+
+
+
 function Products(props) {
+
+
+
+
+
     return (
         <div>
         <Text ml={5} fontSize="5xl" mt={5}>
@@ -23,20 +32,16 @@ function Products(props) {
             <Tr>
                 <Th>Product</Th>
                 <Th>Price</Th>
-                <Th>Recommendation</Th>
+                <Th>Description</Th>
             </Tr>
             </Thead>
             <Tbody>
-            <Tr>
-                <Td>Product1</Td>
-                <Td>$29.00</Td>
-                <Td>70.5%</Td>
-            </Tr>
-            <Tr>
-                <Td>Product2</Td>
-                <Td>$12.00</Td>
-                <Td>30.4%</Td>
-            </Tr>
+            {product.map ((p) => <Tr>
+                <Td>{p.product_name}</Td>
+                <Td>{p.price}</Td>
+                <Td>{p.product_description}</Td>
+            </Tr>)}
+            
             </Tbody>
         </Table>
         </TableContainer>
