@@ -67,7 +67,6 @@ import {
         
           <Flex justify="space-between" flex="1">
             <HStack spacing="3">
-              <Button variant="ghost" onClick={() => navigate('/checkout')} leftIcon={<img src={cart} alt="Cart" width="42px" height="42px" />} mt = {1} mr={10} _hover={{ bg: 'transparent' }}/>
               {user ? 
               <Button variant="ghost" onClick={() => navigate('/profile')} leftIcon={<img src={profile} alt="Profile" width="40px" height="40px" />} mr={10} _hover={{ bg: 'transparent' }}/>
               : <Button variant="ghost" onClick={() => navigate('/login')} leftIcon={<img src={profile} alt="Login" width="40px" height="40px" />} mr={10} _hover={{ bg: 'transparent' }}/>

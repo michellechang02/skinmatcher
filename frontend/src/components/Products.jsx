@@ -23,7 +23,7 @@ function Products(props) {
 
     return (
         <div>
-        <Text ml={5} fontSize="5xl" mt={5}>
+        <Text ml={5} fontSize="5xl" mt={5} mr={10}>
         Products
         </Text>
         <TableContainer>
