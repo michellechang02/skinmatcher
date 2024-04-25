@@ -50,7 +50,7 @@ const Profile = () => {
                 <Text fontWeight="bold">Kim Fung</Text>
                 <Text>kim@example.com</Text>
                 <Text>Phone: Optional</Text>
-                <Button colorScheme="gray" onClick={onEditUserOpen}>Edit</Button>
+                <Button width="75px" colorScheme="gray" onClick={onEditUserOpen}>Edit</Button>
             </Stack>
           </SimpleGrid>
         </ProfileSection>
@@ -62,7 +62,7 @@ const Profile = () => {
                 <Stack spacing={3}>
                     <Text>Skin Type: Combination</Text>
                     <Text>Concerns: Dryness, Acne</Text>
-                    <Button colorScheme="gray" onClick={onEditSkinProfileOpen}>Edit</Button>
+                    <Button width="75px" colorScheme="gray" onClick={onEditSkinProfileOpen}>Edit</Button>
                 </Stack>
             </Box>
         </ProfileSection>
@@ -76,7 +76,7 @@ const Profile = () => {
                     <Text>Notification Preferences: Email, App</Text>
                     <Text>Language: English</Text>
                     <Text>Currency: USD</Text>
-                    <Button colorScheme="gray" onClick={onEditPreferencesOpen}>Edit</Button>
+                    <Button width="75px" colorScheme="gray" onClick={onEditPreferencesOpen}>Edit</Button>
                 </Stack>
             </Box>
         </ProfileSection>
