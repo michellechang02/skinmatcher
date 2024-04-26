@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { supabase } from "../core/supabase.js";
 import {
   Box,
   Button,
@@ -23,70 +22,59 @@ function Login(props) {
   const [username, setUsername] = useState("");
   const [user, setUser] = useState(null);
 
-  useEffect(() => {
-    async function init() {
-      const { data, error } = await supabase.auth.getSession();
-
-      if (error) {
-        console.error(error);
-        return;
-      }
-      if (!!data.session) {
-        setUser(data.session.user);
-      }
-    }
-
-    init();
-  }, []);
-
   const handleLogin = async (email, password) => {
-    try {
-      console.log("trying");
-      console.log(email);
-      console.log(password);
-      const { error, data } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
+    console.log(email);
+    const response = await fetch("http://localhost:8000/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+    });
 
-      if (error) {
-        alert("Error with auth: " + error.message);
-      } else {
-        setUser(data.user);
-        console.log(user);
-      }
-    } catch (error) {
-      console.log("error", error);
-      alert(error.error_description || error);
+    if (!response.ok) {
+      const errorMessage = await response.text();
+      alert("Error with login: " + errorMessage);
+      return;
     }
+
+    const userData = await response.json();
+    const user = userData.user;
+    setUser(user);
+    navigate("/profile");
   };
 
-  const handleSignup = async (email, password, username) => {
+  const handleSignup = async (email, password, name) => {
     try {
-      const { error, data } = await supabase.auth.signUp({
-        email,
-        password,
-        options: {
-          data: {
-            display_name: username,
-          },
+      // Make a POST request to the signup endpoint
+      const response = await fetch("http://localhost:8000/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
+        body: JSON.stringify({
+          email: email,
+          password: password,
+          name: name,
+        }),
       });
 
-      if (error) {
-        alert("Error with auth: " + error.message);
-      } else {
-        setUser(data.user);
-        navigate("/profile");
+      if (!response.ok) {
+        const errorMessage = await response.text();
+        throw new Error(errorMessage);
       }
+
+      alert("Signup successful!");
+      const userData = await response.json();
+      const user = userData.user;
+      setUser(user);
     } catch (error) {
-      console.log("error", error);
-      alert(error.error_description || error);
+      alert("Error with signup: " + error.message);
     }
   };
 
   const handleLogout = async () => {
-    await supabase.auth.signOut();
+    // await supabase.auth.signOut();
     setUser(null);
   };
 
@@ -94,7 +82,6 @@ function Login(props) {
     event.preventDefault(); // Prevent the form from submitting naturally
     console.log(display);
     if (display === 2) {
-      console.log("signing up");
       handleSignup(email, password, username);
     } else {
       handleLogin(email, password);

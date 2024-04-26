@@ -1,13 +1,11 @@
 const express = require("express");
 const app = express();
+const cors = require("cors");
 const { supabase } = require("./core/supabase");
 const port = 8000;
 
-// Middleware to parse JSON bodies
+app.use(cors());
 app.use(express.json());
-
-// Serve static files from the 'public' directory
-app.use(express.static("public"));
 
 // Example route for a GET request (Hello World)
 app.get("/", (req, res) => {
@@ -17,23 +15,50 @@ app.get("/", (req, res) => {
 // All routes
 
 // Login
-app.post("/login", (req, res) => {
-  const { username, password } = req.body;
+app.post("/login", async (req, res) => {
+  const { email, password } = req.body;
 
-  try {
-  } catch (e) {}
+  if (!email || !password) {
+    res.status(400).json({ error: "Email and password are required" });
+    return;
+  }
 
-  res.status(200).json({ message: "Login Success" });
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email,
+    password,
+  });
+
+  if (error) {
+    res.status(500).send(500);
+  } else {
+    res.status(200).send(data);
+  }
 });
 
 // Signup
-app.post("/signup", (req, res) => {
-  const { username, password } = req.body;
-
+app.post("/signup", async (req, res) => {
+  console.log(req);
+  const { email, password, name } = req.body;
   try {
-  } catch (e) {}
+    const { user, error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        data: {
+          display_name: name,
+        },
+      },
+    });
 
-  res.status(200).json({ message: "Signup Success" });
+    if (error) {
+      res.status(500).json({ error: error.message });
+      return;
+    }
+
+    res.status(200).json({ message: "Signup Success", user });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 });
 
 // Get all Products
