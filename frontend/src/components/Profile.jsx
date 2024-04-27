@@ -83,34 +83,7 @@ const Profile = () => {
         <Divider />
 
         {/* Order History */}
-        <ProfileSection title="Order History">
-            <Box marginY="3">
-            <Table variant="simple">
-                <Thead>
-                <Tr>
-                    <Th>Order ID</Th>
-                    <Th>Date</Th>
-                    <Th>Total</Th>
-                    <Th>Status</Th>
-                    <Th isNumeric>Actions</Th>
-                </Tr>
-                </Thead>
-                <Tbody>
-                {orders.map(order => (
-                    <Tr key={order.id}>
-                    <Td>{order.id}</Td>
-                    <Td>{order.date}</Td>
-                    <Td>{order.total}</Td>
-                    <Td>{order.status}</Td>
-                    <Td isNumeric>
-                        <Button size="sm" colorScheme="gray" onClick={onOrderDetailsOpen}>Details</Button>
-                    </Td>
-                    </Tr>
-                ))}
-                </Tbody>
-            </Table>
-            </Box>
-        </ProfileSection>
+        
         {/* <Divider /> */}
 
         {/* Edit Modal for User Information */}

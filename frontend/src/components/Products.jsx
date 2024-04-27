@@ -37,7 +37,7 @@ function Products(props) {
                 <Td>{p.price}</Td>
                 <Td>
                     <Text noOfLines={[1, 2, 3]} style={{ overflowWrap: 'break-word' }}>
-                    {p.product_description.substring(0, 3)}
+                    {`${p.product_description.substring(0, 85)}${p.product_description.length > 85 ? '...' : ''}`}
                     </Text>
                 </Td>
               </Tr>
