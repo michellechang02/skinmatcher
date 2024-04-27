@@ -31,6 +31,7 @@ import {
 
 import data from "../data.json";
 import SkinTypeQuiz from "./SkinTypesQuiz";
+import DailyRoutine from "./DailyRoutine";
 
 function TaketheQuiz(props) {
   const [selectedType, setSelectedType] = useState(null);
@@ -331,6 +332,7 @@ function TaketheQuiz(props) {
           </>
         )}
         {quiz === 1 && <SkinTypeQuiz />}
+        {quiz === 2 && <DailyRoutine />}
       </HStack>
     </div>
   );

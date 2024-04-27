@@ -14,77 +14,104 @@ import {
 import "./quiz.css";
 import data from "../data.json";
 
-const SkinTypeQuiz = () => {
+const DailyRoutine = () => {
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [recommended, setRecommended] = useState([]);
   const [slideDirection, setSlideDirection] = useState("left");
   const titleList = [
-    "What is your skin type?",
-    "What is your skin type?",
-    "What is your skin type?",
-    "What is your skin type?",
-    "What is your skin type?",
-    "What is your skin type?",
-    "What is your skin type?",
+    "Assess your skin moisturization needs",
+    "Assess your skin's sebum production",
+    "Assess your skin's underlying inflammation",
+    "Lifestyle habits",
+    "Suncare Habits",
+    "Check all the following concerns that you would like to address",
+    "Let's help you find the right sunscreen",
+    "Help us color match your sunscreen",
   ];
   const questionList = [
-    "What does your skin typically look like at the end of the day",
-    "If you wash your face and don't apply any products, how does your skin behave 30 minutes later?",
-    "Dab a blotting paper or tissue on each part of your face, then hold it to the light. What do you see?",
-    "What's generally your top skin concern?",
-    "What do your current favorite skin care products do?",
-    "Describe your pores.",
-    "What do you look for in a face mask",
+    "Please check all that are true about how often you must use a moisturizer for your skin to feel hydrated. (Multiple answers are preferred.)",
+    "Please check all that are true about your facial skin. (Multiple answers are preferred.)",
+    "Check all the following that you have had in the last 4 weeks: (Multiple answers allowed)",
+    "Check all that apply to you. (Multiple answers allowed)",
+    "Check all that apply to you. (Multiple answers allowed)",
+    "If you have any other issues you would like us to recommend products for, please select them here. You can scroll down and select 'None of the above' if nothing applies",
+    "The most important step to prevent aging is wearing sunscreen on a daily basis and re-applying through the day, even when indoors.",
+    "What tint of daily facial sunscreen do you prefer?",
   ];
   const answersList = [
     [
-      "Shimmery T-zone but matte cheeks",
-      "Slick and shiny",
-      "Tight or splotchy",
+      "I can use any soap to wash my face without developing dryness.",
+      "I do not apply any products to my facial skin after cleansing.",
+      "I never or only occasionally apply a moisturizer.",
+      "I apply a moisturizer to my face once a day.",
+      "I apply a moisturizer to my face twice a day.",
+    ],
+    [
+      "My facial skin is rough or dry.",
+      "My facial skin is oily in some areas.",
+      "My face is very oily.",
+      "My face is uncomfortable if I do not use a moisturizer.",
+      "I like the feel of heavy creams and/or oil on my skin.",
       "None of the above",
     ],
     [
-      "It wants moisturizer asap.",
-      "It's calm, smooth, and soft.",
-      "Oily, dry, and generally uneven.",
-      "It's already shiny.",
-    ],
-    [
-      "Oily spots.",
-      "Minor oil slicks from my nose and forehead.",
-      "Nothing, but my skin is irritated from blotting",
+      "Acne (pimples)",
+      "Facial redness and/or flushing",
+      "Stinging or burning",
+      "A rash with itching, scaling and redness",
+      "Irritation from shaving the face",
       "None of the above",
     ],
     [
-      "Dryness or irritation",
-      "Blackheads or acne",
-      "T-zone shine or unevenness",
-      "Fine lines or wrinkles",
+      "I am exposed to second hand smoke on a weekly basis.",
+      "I currently smoke cigarettes or cigars",
+      "I often get less than 7 hours of sleep a night.",
+      "I feel stress at least 2 hours a day.",
+      "I eat sugary foods over 3 times a week.",
+      "I exercise less than 3 hours a week.",
+      "I do not eat fruit or vegetables every day.",
+      "None of the above",
     ],
     [
-      "Provide the right amount of plump and glow",
-      "Balance my complexion",
-      "Relieve tightness or irritation",
-      "Clear and prevent breakouts",
+      "I have been to a tanning bed more than 3 times in my life.",
+      "I am exposed to the sun for over 3 hours a week.",
+      "I spend over 3 hrs/wk near a window during daylight (including driving).",
+      "My face has been sunburned and peeled more than twice in my life.",
+      "I do not take daily antioxidant supplements like vitamin E and C.",
+      "One of my parents has more wrinkles than others their age.",
+      "I do not wear sunscreen every day",
+      "I do not wear sunscreen during outdoor activities",
+      "None of the above",
     ],
     [
-      "Visible, large, and sometimes clogged",
-      "Depends on where they are on my face",
-      "Small to medium-size",
-      "They seem to change with the day",
+      "Dandruff or itching/flaking scalp",
+      "Dry skin",
+      "Eczema",
+      "Hair loss or thinning hair",
+      "Psoriasis",
+      "Shaving irritation",
+      "Acne Scars",
+      "Broken blood vessels on face or body",
+      "Cellulite",
+      "Loss of fullness",
+      "Sagging skin",
+      "Stretch marks",
+      "Wrinkles",
+      "None of the above",
     ],
     [
-      "Charcoal or clay to absorb oil",
-      "Enzymes or acid to resurface",
-      "A leave-on sleep mask to deeply hydrate",
-      "Whatever smells or looks great",
+      "Chemical Block (Less White)",
+      "Chemical Free Physical Block (Zinc Oxide, May Be White)",
+      "No Preference",
     ],
+    ["Tinted (Has Color)", "Untinted (White Or Clear)", "No Preference"],
   ];
 
   const [currentIndex, setIndex] = useState(0);
 
   const [questionStates, setQuestionStates] = useState([
     "green",
+    "unseen",
     "unseen",
     "unseen",
     "unseen",
@@ -206,7 +233,7 @@ const SkinTypeQuiz = () => {
   }
 
   useEffect(() => {
-    if (currentIndex === 6) {
+    if (currentIndex === 8) {
       getRec();
     }
   }, [currentIndex]);
@@ -249,7 +276,7 @@ const SkinTypeQuiz = () => {
             style={{ zIndex: 0 }}
           >
             {" "}
-            {currentIndex < 7 ? (
+            {currentIndex < 8 ? (
               <CheckboxGroup
                 colorScheme="green"
                 value={selectedOptions}
@@ -285,7 +312,7 @@ const SkinTypeQuiz = () => {
             borderRadius={"25px"}
             mt={"30px"}
           >
-            {currentIndex < 6 ? "CONTINUE" : "SUBMIT"}
+            {currentIndex < 7 ? "CONTINUE" : "SUBMIT"}
           </Button>
         )}
       </Box>
@@ -299,4 +326,4 @@ const SkinTypeQuiz = () => {
   );
 };
 
-export default SkinTypeQuiz;
+export default DailyRoutine;
