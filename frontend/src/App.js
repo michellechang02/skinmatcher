@@ -10,6 +10,7 @@ import Profile from "./components/Profile";
 import Login from "./components/Login";
 import Products from "./components/Products";
 import Compare from "./components/Compare";
+import Product from "./components/Product";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route path="/compare" element={<Compare />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/products" element={<Products />} />
+          <Route path="/product" element={<Product />} />
         </Routes>
       </div>
     </ChakraProvider>

@@ -18,6 +18,8 @@ const ColorAnalysis = () => {
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [recommended, setRecommended] = useState([]);
   const [slideDirection, setSlideDirection] = useState("left");
+ 
+ 
   const titleList = [
     "Access your color analysis",
     "Assess your skin's sebum production",
@@ -28,6 +30,8 @@ const ColorAnalysis = () => {
     "Let's help you find the right sunscreen",
     "Help us color match your sunscreen",
   ];
+
+  
   const questionList = [
     "[Question 1]",
     "Check the color that is closest to your natural hair color",

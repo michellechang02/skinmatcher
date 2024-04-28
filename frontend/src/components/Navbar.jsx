@@ -7,6 +7,7 @@ import {
   import Logo from '../images/Logo.png'
   import profile from '../images/profile.png'
   import cart from '../images/cart.png'
+  import axios from 'axios';
   
   function Navbar() {
     const isDesktop = useBreakpointValue({
@@ -16,8 +17,27 @@ import {
     const [user, setUser] = useState(null);
     const [searchQuery, setSearchQuery] = useState('');
 
-    const handleSearch = () => {
-      console.log('Search for:', searchQuery);
+    const handleSearch = async(e) => {
+      //prevent default
+      e.preventDefault();
+      console.log(searchQuery);
+      const encodedSearch = encodeURIComponent(searchQuery);
+
+      try {
+        const response = await axios.get(`http://localhost:8000/search?q=${encodedSearch}`);
+        console.log(response.data[0]);
+
+        const productData = response.data[0];
+        navigate('/product', { state: productData });
+        
+        //reset Search Query
+        setSearchQuery('');
+
+      } catch (error) {
+        console.log(error);
+        alert(error.message);
+      }
+
     }
   
     // const getUser = async () => {
@@ -49,6 +69,7 @@ import {
 
         <Button variant="ghost" onClick={() => navigate('/products')} mt = {5} mr={10} _hover={{ bg: 'transparent' }} fontFamily = "Roboto" fontWeight = "light"><t>Products</t></Button>
 
+        <form width="auto" onSubmit={handleSearch} style={{ width: '100%' }}>
         <InputGroup mt={5} mb={2} ml={2}>
           <Input
             placeholder="Search..."
@@ -58,12 +79,13 @@ import {
             borderRadius={"25px"}
           />
           <InputRightElement width="auto" mr={5} paddingRight="5%">
-            <Button h="1.75rem" size="sm" onClick={handleSearch}>
+            <Button h="1.75rem" size="sm" type="submit">
               Search
             </Button>
           </InputRightElement>
 
         </InputGroup>
+        </form>
         
           <Flex justify="space-between" flex="1">
             <HStack spacing="3">
