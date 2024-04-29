@@ -12,6 +12,7 @@ import {
   CloseButton,
 } from "@chakra-ui/react";
 import Cookies from "js-cookie";
+import config from '../config.json';
 
 function Login(props) {
   const toast = useToast();
@@ -35,7 +36,7 @@ function Login(props) {
 
   const handleLogin = async (email, password) => {
     console.log(email);
-    const response = await fetch("https://skinmatcher2.vercel.app/login", {
+    const response = await fetch(`${config.serverURL}/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -65,7 +66,7 @@ function Login(props) {
   const handleSignup = async (email, password, name) => {
     try {
       // Make a POST request to the signup endpoint
-      const response = await fetch("https://skinmatcher2.vercel.app/signup", {
+      const response = await fetch(`${config.serverURL}/signup`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

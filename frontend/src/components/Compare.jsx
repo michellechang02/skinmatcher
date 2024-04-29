@@ -3,6 +3,7 @@ import { ChakraProvider, Box, Flex, Text, Image, Input, HStack, VStack, Button,
     FormControl, FormLabel} from '@chakra-ui/react';
 import home from '../home.json'
 import axios from 'axios';
+import config from '../config.json';
 
 function Compare(props) {
 
@@ -26,7 +27,7 @@ function Compare(props) {
       const encoded1 = encodeURIComponent(product1);
 
       try {
-        const response = await axios.get(`http://localhost:8000/search?q=${encoded1}`);
+        const response = await axios.get(`${config.serverURL}/search?q=${encoded1}`);
         setProduct1All(response.data[0]);
 
       } catch (error) {
@@ -48,7 +49,7 @@ function Compare(props) {
       const encoded2 = encodeURIComponent(product2);
 
       try {
-        const response = await axios.get(`http://localhost:8000/search?q=${encoded2}`);
+        const response = await axios.get(`${config.serverURL}/search?q=${encoded2}`);
         setProduct2All(response.data[0]);
         console.log(product2All);
 
@@ -70,7 +71,7 @@ function Compare(props) {
       const encoded3 = encodeURIComponent(product3);
 
       try {
-        const response = await axios.get(`http://localhost:8000/search?q=${encoded3}`);
+        const response = await axios.get(`${config.serverURL}/search?q=${encoded3}`);
         setProduct3All(response.data[0]);
 
       } catch (error) {
@@ -80,10 +81,6 @@ function Compare(props) {
 
       setProduct3('');
     }
-
-    
-
-    
 
     
 
@@ -127,7 +124,7 @@ function Compare(props) {
             {!isEmpty(product1All)   && ( <div>
             <Text textAlign="center" mt={2} fontSize="40px">{product1All.product_name}</Text>
             <Image
-              src={home[0].url}
+              src="https://cdn.shopify.com/s/files/1/0506/2121/8972/products/860006869076-1.jpg?v=1680496959&width=1024"
               width="90%"
               height="60%"
               objectFit="cover"

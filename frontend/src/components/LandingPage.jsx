@@ -149,7 +149,7 @@ function LandingPage(props) {
       fontWeight="500"
       position="relative" // To position children absolutely if needed
     >
-      Personalized Skincare Quiz
+      Personalized Skincare Quizzes
       {/* Adjusting the Button */}
       <Button 
         bg="black" // Background color set to black
