@@ -11,6 +11,7 @@ import {
   Text,
   CloseButton,
 } from "@chakra-ui/react";
+import Cookies from "js-cookie";
 
 function Login(props) {
   const toast = useToast();
@@ -22,9 +23,19 @@ function Login(props) {
   const [username, setUsername] = useState("");
   const [user, setUser] = useState(null);
 
+  useEffect(() => {
+    // const storedToken = Cookies.get("supabase_auth_token");
+    const storedUser = Cookies.get("supabase_user");
+    if (storedUser !== undefined) {
+      console.log(storedUser);
+      setUser(storedUser);
+      navigate("/profile");
+    }
+  }, []);
+
   const handleLogin = async (email, password) => {
     console.log(email);
-    const response = await fetch("http://localhost:8000/login", {
+    const response = await fetch("https://skinmatcher2.vercel.app/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -39,15 +50,22 @@ function Login(props) {
     }
 
     const userData = await response.json();
-    const user = userData.user;
-    setUser(user);
-    navigate("/profile");
+    if (userData) {
+      const user = userData.user;
+      // const accessToken = userData?.session?.access_token;
+      // Cookies.set("supabase_auth_token", accessToken);
+      Cookies.set("supabase_user", user);
+      setUser(user);
+      navigate("/profile");
+    } else {
+      alert("ERROR");
+    }
   };
 
   const handleSignup = async (email, password, name) => {
     try {
       // Make a POST request to the signup endpoint
-      const response = await fetch("http://localhost:8000/signup", {
+      const response = await fetch("https://skinmatcher2.vercel.app/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -66,8 +84,17 @@ function Login(props) {
 
       alert("Signup successful!");
       const userData = await response.json();
-      const user = userData.user;
-      setUser(user);
+      if (userData) {
+        const user = userData.user;
+        const accessToken = userData?.session?.access_token;
+        // console.log(accessToken);
+        // Cookies.set("supabase_auth_token", accessToken);
+        Cookies.set("supabase_user", user);
+        setUser(user);
+        navigate("/profile");
+      } else {
+        alert("ERROR");
+      }
     } catch (error) {
       alert("Error with signup: " + error.message);
     }
@@ -75,6 +102,9 @@ function Login(props) {
 
   const handleLogout = async () => {
     // await supabase.auth.signOut();
+    // fetch("");
+    Cookies.remove("supabase_auth_token");
+    Cookies.remove("supabase_user");
     setUser(null);
   };
 

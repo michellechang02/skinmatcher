@@ -1,117 +1,31 @@
 import React, { useState, useEffect } from "react";
 import {
+  Flex,
   Box,
-  Text,
-  Checkbox,
-  CheckboxGroup,
-  Button,
+  Input,
   VStack,
-  Slide,
+  Button,
+  Text,
   HStack,
-  Image,
-  Progress,
 } from "@chakra-ui/react";
 import "./quiz.css";
-import data from "../data.json";
 
 const ColorAnalysis = () => {
+  const [imageUrl, setImageUrl] = useState("");
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [recommended, setRecommended] = useState([]);
   const [slideDirection, setSlideDirection] = useState("left");
- 
- 
-  const titleList = [
-    "Access your color analysis",
-    "Assess your skin's sebum production",
-    "Assess your skin's underlying inflammation",
-    "Lifestyle habits",
-    "Suncare Habits",
-    "Check all the following concerns that you would like to address",
-    "Let's help you find the right sunscreen",
-    "Help us color match your sunscreen",
-  ];
-
-  
-  const questionList = [
-    "[Question 1]",
-    "Check the color that is closest to your natural hair color",
-    "Check all the following that you have had in the last 4 weeks: (Multiple answers allowed)",
-    "Check all that apply to you. (Multiple answers allowed)",
-    "Check all that apply to you. (Multiple answers allowed)",
-    "If you have any other issues you would like us to recommend products for, please select them here. You can scroll down and select 'None of the above' if nothing applies",
-    "The most important step to prevent aging is wearing sunscreen on a daily basis and re-applying through the day, even when indoors.",
-    "What tint of daily facial sunscreen do you prefer?",
-  ];
-  const answersList = [
-    [
-      "I can use any soap to wash my face without developing dryness.",
-      "I do not apply any products to my facial skin after cleansing.",
-      "I never or only occasionally apply a moisturizer.",
-      "I apply a moisturizer to my face once a day.",
-      "I apply a moisturizer to my face twice a day.",
-    ],
-    [
-      "My facial skin is rough or dry.",
-      "My facial skin is oily in some areas.",
-      "My face is very oily.",
-      "My face is uncomfortable if I do not use a moisturizer.",
-      "I like the feel of heavy creams and/or oil on my skin.",
-      "None of the above",
-    ],
-    [
-      "Acne (pimples)",
-      "Facial redness and/or flushing",
-      "Stinging or burning",
-      "A rash with itching, scaling and redness",
-      "Irritation from shaving the face",
-      "None of the above",
-    ],
-    [
-      "I am exposed to second hand smoke on a weekly basis.",
-      "I currently smoke cigarettes or cigars",
-      "I often get less than 7 hours of sleep a night.",
-      "I feel stress at least 2 hours a day.",
-      "I eat sugary foods over 3 times a week.",
-      "I exercise less than 3 hours a week.",
-      "I do not eat fruit or vegetables every day.",
-      "None of the above",
-    ],
-    [
-      "I have been to a tanning bed more than 3 times in my life.",
-      "I am exposed to the sun for over 3 hours a week.",
-      "I spend over 3 hrs/wk near a window during daylight (including driving).",
-      "My face has been sunburned and peeled more than twice in my life.",
-      "I do not take daily antioxidant supplements like vitamin E and C.",
-      "One of my parents has more wrinkles than others their age.",
-      "I do not wear sunscreen every day",
-      "I do not wear sunscreen during outdoor activities",
-      "None of the above",
-    ],
-    [
-      "Dandruff or itching/flaking scalp",
-      "Dry skin",
-      "Eczema",
-      "Hair loss or thinning hair",
-      "Psoriasis",
-      "Shaving irritation",
-      "Acne Scars",
-      "Broken blood vessels on face or body",
-      "Cellulite",
-      "Loss of fullness",
-      "Sagging skin",
-      "Stretch marks",
-      "Wrinkles",
-      "None of the above",
-    ],
-    [
-      "Chemical Block (Less White)",
-      "Chemical Free Physical Block (Zinc Oxide, May Be White)",
-      "No Preference",
-    ],
-    ["Tinted (Has Color)", "Untinted (White Or Clear)", "No Preference"],
-  ];
-
   const [currentIndex, setIndex] = useState(0);
+
+  const colorList = [
+    ["#f098c3", "#eda28c"],
+    ["#62af5f", "#4eb98a"],
+    ["#da2f4b", "#e04638"],
+    ["#652e1f", "#353b5e"],
+    ["#d0b566", "#d6d6d6"],
+  ];
+
+  const [color, setRectColor] = useState(colorList[0][0]);
 
   const [questionStates, setQuestionStates] = useState([
     "green",
@@ -119,10 +33,20 @@ const ColorAnalysis = () => {
     "unseen",
     "unseen",
     "unseen",
-    "unseen",
-    "unseen",
-    "unseen",
   ]);
+
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      setImageUrl(reader.result);
+    };
+
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+  };
 
   const handleOptionChange = (option) => {
     const isSelected = selectedOptions.includes(option);
@@ -131,6 +55,10 @@ const ColorAnalysis = () => {
         ? selectedOptions.filter((o) => o !== option)
         : [...selectedOptions, option]
     );
+  };
+
+  const colorChange = (color) => {
+    setRectColor(color);
   };
 
   const handleContinue = () => {
@@ -144,9 +72,13 @@ const ColorAnalysis = () => {
       for (let i = 0; i < currentIndex + 1; i++) {
         updatedStates[i] = "light-green";
       }
-      setIndex(currentIndex + 1);
 
       setQuestionStates(updatedStates);
+      if (currentIndex + 1 < 5) {
+        setRectColor(colorList[currentIndex + 1][0]);
+      }
+
+      setIndex(currentIndex + 1);
     }, 500);
   };
   const [slideProgress, setSlideProgress] = useState(0);
@@ -173,142 +105,146 @@ const ColorAnalysis = () => {
 
   const buttonOpacity = slideDirection === "slide-out" ? 0 : 1;
 
-  function displayQuestions(index) {
-    console.log(index);
-    const answers = answersList[index];
+  // function getRec() {
+  //   const productNumber = Math.floor(Math.random() * data.length);
+  //   setRecommended(data[productNumber]);
+  //   // return (
+  //   //   <Box flex="1" height="100%">
+  //   //     <Image mt={5} ml={5} src={recommended.url} alt="Dan Abramov" />
+  //   //   </Box>
+  //   // );
+  // }
 
-    // Calculate the number of answers per column based on the total number of answers
-
-    const columns = Math.ceil(answers.length / 6);
-    const answersPerColumn = Math.ceil(answers.length / columns);
-
-    // Create an array of buttons for each column
-    const buttons = answers.map((answer, i) => (
-      <Button
-        backgroundColor={
-          selectedOptions.includes("option" + i) ? "beige" : "whitesmoke"
-        }
-        _hover={{
-          backgroundColor: "beige",
-          borderColor: "brown",
-        }}
-        onClick={() => handleOptionChange("option" + i)}
-        borderRadius="md"
-        borderColor={selectedOptions.includes("option" + i) ? "beige" : "grey"}
-        borderWidth={1.5}
-        px={4}
-        py={6}
-        width={answers.length > 6 ? "100%" : "700px"}
-        style={{ opacity: buttonOpacity }}
-      >
-        <Text color="black">{answer}</Text>
-      </Button>
-    ));
-
-    if (answers.length > 6) {
-      return (
-        <HStack spacing={3}>
-          {Array(columns)
-            .fill()
-            .map((_, i) => (
-              <VStack key={i}>
-                {buttons.slice(
-                  i * answersPerColumn,
-                  (i + 1) * answersPerColumn
-                )}
-              </VStack>
-            ))}
-        </HStack>
-      );
-    }
-
-    // Render buttons in a single column if there are 6 or fewer answers
-    return <VStack spacing={4}>{buttons}</VStack>;
-  }
-
-  function getRec() {
-    const productNumber = Math.floor(Math.random() * data.length);
-    setRecommended(data[productNumber]);
-    // return (
-    //   <Box flex="1" height="100%">
-    //     <Image mt={5} ml={5} src={recommended.url} alt="Dan Abramov" />
-    //   </Box>
-    // );
-  }
-
-  useEffect(() => {
-    if (currentIndex === 8) {
-      getRec();
-    }
-  }, [currentIndex]);
-
-  //   function displayProgressCircles() {
-  //     const circles = [];
-  //     for (let i = 0; i < 6; i++) {
-  //       circles.push(
-  //         <Box
-  //           key={i}
-  //           w="50px" // Width of the circle
-  //           h="50px" // Height of the circle
-  //           borderRadius="50%" // Makes the box shape circular
-  //           bg={
-  //             i > currentIndex
-  //               ? "gray"
-  //               : i === currentIndex
-  //               ? "green"
-  //               : "light-green"
-  //           } // Background color based on condition
-  //         />
-  //       );
-  //     }
-  //     return circles;
+  // useEffect(() => {
+  //   if (currentIndex === 6) {
+  //     getRec();
   //   }
+  // }, [currentIndex]);
 
   return (
     <HStack ml={5} mr={5} w="100%">
       <Box mt={-14} w="100%">
-        <Text mb={4}>{titleList[currentIndex]}</Text>
-        <Text mb={4}>{questionList[currentIndex]}</Text>
-        <CheckboxGroup
-          colorScheme="green"
-          value={selectedOptions}
-          onChange={(values) => setSelectedOptions(values)}
-        >
-          <VStack
-            position="relative"
-            className={slideDirection}
-            style={{ zIndex: 0 }}
-          >
-            {" "}
-            {currentIndex < 8 ? (
-              <CheckboxGroup
-                colorScheme="green"
-                value={selectedOptions}
-                onChange={(values) => setSelectedOptions(values)}
+        {currentIndex < 5 ? (
+          <>
+            <Text mb={4}>Pick the color that best suits you</Text>
+            <Flex ml="35px" justifyContent="center" alignItems="center">
+              <Box
+                display="flex"
+                alignItems="center"
+                className={slideDirection}
               >
-                <VStack
+                <Box
                   position="relative"
-                  className={slideDirection}
-                  style={{ zIndex: 0 }}
+                  overflow="hidden"
+                  width="500px"
+                  height="400px"
+                  background={color}
+                  borderRadius="10%"
                 >
-                  {displayQuestions(currentIndex)}
-                </VStack>
-              </CheckboxGroup>
-            ) : (
-              <Box flex="1" height="100%">
-                {recommended && (
-                  <Image
-                    mt={5}
-                    ml={5}
-                    src={recommended.url}
-                    alt="Recommended Product"
+                  <Box
+                    width="70%"
+                    height="100%"
+                    borderRadius="50%"
+                    background="white"
+                    border={`30px solid ${color}`}
+                    position="absolute"
+                    textAlign="center"
+                    top="50%"
+                    left="50%"
+                    transform="translate(-50%, -50%)"
+                    overflow="hidden"
+                  >
+                    {imageUrl ? (
+                      <img
+                        src={imageUrl}
+                        alt="user face"
+                        style={{
+                          width: "100%",
+                          height: "100%",
+                          objectFit: "cover",
+                          borderRadius: "50%",
+                        }}
+                      />
+                    ) : (
+                      <Text fontSize="xl" mt="140px">
+                        Upload a picture of yourself!
+                      </Text>
+                    )}
+                  </Box>
+                  <Box
+                    position="absolute"
+                    top="0"
+                    left="0"
+                    width="100%"
+                    height="100%"
+                    backgroundColor="#e3e3e3"
+                    zIndex="-1"
                   />
-                )}
+                  <Input
+                    type="file"
+                    accept="image/*"
+                    position="absolute"
+                    opacity="0"
+                    width="100%"
+                    height="100%"
+                    top="0"
+                    left="0"
+                    cursor="pointer"
+                    onChange={handleImageUpload}
+                  />
+                </Box>
+                <VStack>
+                  <Box
+                    ml="20px"
+                    borderRadius="100%"
+                    width="100px"
+                    height="100px"
+                    bg={colorList[currentIndex][0]}
+                    onClick={() => colorChange(colorList[currentIndex][0])}
+                  />
+                  <Box
+                    ml="20px"
+                    borderRadius="100%"
+                    width="100px"
+                    height="100px"
+                    bg={colorList[currentIndex][1]}
+                    onClick={() => colorChange(colorList[currentIndex][1])}
+                  />
+                </VStack>
               </Box>
-            )}
-          </VStack>
-        </CheckboxGroup>
-        {currentIndex < 8 && (
+            </Flex>
+          </>
+        ) : (
+          <Box
+            position="relative"
+            overflow="hidden"
+            width="500px"
+            height="400px"
+            borderRadius="10%"
+            borderWidth="1px"
+            borderColor="black"
+            alignItems="center"
+            alignText="center"
+          >
+            <Text mt={20} ml={4} fontWeight="bold">
+              Your undertone is warm!
+            </Text>
+            <Text ml={4}>Warm tones have the following characteristics:</Text>
+            <Text ml={5}>
+              - Their undertone is yellow-based (while cool tones have a
+              blue-based undertone)
+            </Text>
+            <Text ml={5}>
+              - Typically shine brighter in gold jewelry than in silver jewelry
+            </Text>
+            <Text ml={5}>
+              - Are more harmonious with yellow-based colors such as yellow,
+              orange, and green (rather than blue-based colors such as blue,
+              purple, and pink)
+            </Text>
+          </Box>
+        )}
+        {currentIndex < 5 && (
           <Button
             position="absolute"
             colorScheme="blackAlpha"
@@ -316,7 +252,7 @@ const ColorAnalysis = () => {
             borderRadius={"25px"}
             mt={"30px"}
           >
-            {currentIndex < 7 ? "CONTINUE" : "SUBMIT"}
+            {currentIndex < 4 ? "CONTINUE" : "SUBMIT"}
           </Button>
         )}
       </Box>
@@ -324,7 +260,6 @@ const ColorAnalysis = () => {
         {questionStates.map((state, index) => (
           <Box key={index} className={`circle ${state}`} />
         ))}
-        /
       </VStack>
     </HStack>
   );

@@ -102,7 +102,17 @@ app.get("/search", async (req, res) => {
   res.status(200).json(data);
 });
 
+app.post("/logout", async (req, res) => {
+  const { error } = await supabase.auth.signOut();
+  if (error) {
+    res.status(500).json(error);
+  }
+  res.status(200);
+});
+
+app.post("/");
+
 // Start the server
 app.listen(port, () => {
-  console.log(`Server running on http://localhost:${port}`);
+  console.log(`Server running on http://https://skinmatcher2.vercel.app`);
 });
