@@ -64,7 +64,7 @@ import {
   
           <img src="/static/media/Logo.bc46533bbdf7b1e13a05.png" width="70px" alt="Logo" style={{"marginLeft":"5px"}}
           onClick={() => navigate('/')}/>
-          <Button variant="ghost" onClick={() => navigate('/quiz')} ml={10} mt = {5} mr={10} _hover={{ bg: 'transparent' }} fontFamily = "Roboto" fontWeight = "light"><t>Take the Quiz</t></Button>
+          <Button variant="ghost"  onClick={() => navigate('/quiz')} ml={10} mt = {5} mr={10} _hover={{ bg: 'transparent' }} fontFamily = "Roboto" fontWeight = "bold"><t>Quizzes</t></Button>
         <Button variant="ghost" onClick={() => navigate('/compare')} mt = {5} mr={10} _hover={{ bg: 'transparent' }} fontFamily = "Roboto" fontWeight = "light"><t>Compare</t></Button>
 
         <Button variant="ghost" onClick={() => navigate('/products')} mt = {5} mr={10} _hover={{ bg: 'transparent' }} fontFamily = "Roboto" fontWeight = "light"><t>Products</t></Button>
@@ -86,6 +86,8 @@ import {
 
         </InputGroup>
         </form>
+
+        
         
           <Flex justify="space-between" flex="1">
             <HStack spacing="3">

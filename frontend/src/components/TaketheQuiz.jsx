@@ -77,7 +77,7 @@ function TaketheQuiz(props) {
   return (
     <div>
       <Text ml={5} fontSize="5xl" mt={5}>
-        Quiz
+        Quizzes
       </Text>
       <HStack spacing={4} ml={5} mr={5} mt={1}>
         <Box
