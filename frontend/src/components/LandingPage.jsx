@@ -23,8 +23,8 @@ function LandingPage(props) {
             boxShadow="md"
           >
             <VStack>
-            <Text textColor={'black'}>Just for Michelle</Text>
-            <Box display="flex" gap="10px">
+            <Text textColor={'black'}>Just for You</Text>
+            <Box display="flex" gap="30px">
         {Array.from({ length: 5 }).map((_, index) => (
           <Box
             key={`rectangle-2-${index}`}
@@ -63,7 +63,7 @@ function LandingPage(props) {
           >
              <VStack>
             <Text textColor={'black'}>Dermatologist's Pick</Text>
-            <Box display="flex" gap="10px">
+            <Box display="flex" gap="30px">
         {Array.from({ length: 5 }).map((_, index) => (
           <Box
             key={`rectangle-2-${index}`}
@@ -102,7 +102,7 @@ function LandingPage(props) {
           >
         <VStack>
         <Text    textColor={'black'}>Trending in Philadelphia, PA</Text>
-            <Box display="flex" gap="10px">
+            <Box display="flex" gap="30px">
         {Array.from({ length: 5 }).map((_, index) => (
           <Box
             key={`rectangle-2-${index}`}
@@ -131,8 +131,8 @@ function LandingPage(props) {
 
         {/* Large rectangle on the right */}
         <Box
-      ml={10}
-      w="500px" // Width of the large rectangle
+      ml="20px"
+      w="600px" // Width of the large rectangle
       h="640px" // Height equal to the total of the three small rectangles including gaps
       bg="gray.200" // Light gray background for contrast
       borderRadius="lg"
