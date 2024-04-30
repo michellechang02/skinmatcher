@@ -62,7 +62,7 @@ import {
       <Box as="nav" bg="bg-surface" boxShadow="sm">
         <Flex>
   
-          <img src={logo} width="70px" alt="Logo" style={{"marginLeft":"20px"}}
+          <img src={logo} width="70px" alt="Logo" style={{"marginLeft":"30px"}}
           onClick={() => navigate('/')}/>
           <Button variant="ghost"  onClick={() => navigate('/quiz')} ml={10} mt = {5} mr={10} _hover={{ bg: 'transparent' }} fontFamily = "Roboto" fontWeight = "bold"><t>Quizzes</t></Button>
         <Button variant="ghost" onClick={() => navigate('/compare')} mt = {5} mr={10} _hover={{ bg: 'transparent' }} fontFamily = "Roboto" fontWeight = "light"><t>Compare</t></Button>
