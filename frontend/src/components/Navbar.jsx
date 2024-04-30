@@ -4,7 +4,7 @@ import {
   import { useNavigate } from 'react-router-dom';
   import React, { useState, useEffect } from 'react';
   import { Divider } from "@chakra-ui/react";
-  import Logo from '../images/Logo.png'
+  import logo from '../images/whitelogo.png'
   import profile from '../images/profile.png'
   import cart from '../images/cart.png'
   import axios from 'axios';
@@ -62,7 +62,7 @@ import {
       <Box as="nav" bg="bg-surface" boxShadow="sm">
         <Flex>
   
-          <img src="/static/media/Logo.bc46533bbdf7b1e13a05.png" width="70px" alt="Logo" style={{"marginLeft":"5px"}}
+          <img src={logo} width="70px" alt="Logo" style={{"marginLeft":"20px"}}
           onClick={() => navigate('/')}/>
           <Button variant="ghost"  onClick={() => navigate('/quiz')} ml={10} mt = {5} mr={10} _hover={{ bg: 'transparent' }} fontFamily = "Roboto" fontWeight = "bold"><t>Quizzes</t></Button>
         <Button variant="ghost" onClick={() => navigate('/compare')} mt = {5} mr={10} _hover={{ bg: 'transparent' }} fontFamily = "Roboto" fontWeight = "light"><t>Compare</t></Button>
