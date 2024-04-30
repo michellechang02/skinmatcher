@@ -23,7 +23,7 @@ function LandingPage(props) {
             boxShadow="md"
           >
             <VStack>
-            <Text textColor={'black'}>Just for You</Text>
+            <Text textColor={'black'} fontSize="18px">Just for You</Text>
             <Box display="flex" gap="30px">
         {Array.from({ length: 5 }).map((_, index) => (
           <Box
@@ -62,7 +62,7 @@ function LandingPage(props) {
             boxShadow="md"
           >
              <VStack>
-            <Text textColor={'black'}>Dermatologist's Pick</Text>
+            <Text textColor={'black'} fontSize="18px">Dermatologist's Pick</Text>
             <Box display="flex" gap="30px">
         {Array.from({ length: 5 }).map((_, index) => (
           <Box
@@ -101,7 +101,7 @@ function LandingPage(props) {
             boxShadow="md"
           >
         <VStack>
-        <Text    textColor={'black'}>Trending in Philadelphia, PA</Text>
+        <Text    textColor={'black'} fontSize="18px">Trending in Philadelphia, PA</Text>
             <Box display="flex" gap="30px">
         {Array.from({ length: 5 }).map((_, index) => (
           <Box
@@ -149,7 +149,7 @@ function LandingPage(props) {
       fontWeight="500"
       position="relative" // To position children absolutely if needed
     >
-      Personalized Skincare Quizzes
+      <Text fontSize="2xl">Personalized Skincare Quizzes</Text>
       {/* Adjusting the Button */}
       <Button 
         bg="black" // Background color set to black
