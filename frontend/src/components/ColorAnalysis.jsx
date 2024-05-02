@@ -7,10 +7,10 @@ import {
   Button,
   Text,
   HStack,
-  Image
+  Image,
 } from "@chakra-ui/react";
 import "./quiz.css";
-import warm from '../images/warm.jpg'
+import warm from "../images/warm.jpg";
 
 const ColorAnalysis = () => {
   const [imageUrl, setImageUrl] = useState("");
@@ -218,20 +218,20 @@ const ColorAnalysis = () => {
           </>
         ) : (
           <Box
-          position="absolute" 
-          top="50%" 
-          left="50%" 
-          transform="translate(-50%, -50%)" 
-          overflow="hidden"
-          width="800px" 
-          height="600px"
-          borderRadius="10%"
-          borderWidth="1px"
-          borderColor="black"
-          display="flex" 
-          flexDirection="column" 
-          justifyContent="center"
-          mt={100}
+            position="absolute"
+            top="50%"
+            left="50%"
+            transform="translate(-50%, -50%)"
+            overflow="hidden"
+            width="800px"
+            height="600px"
+            borderRadius="10%"
+            borderWidth="1px"
+            borderColor="black"
+            display="flex"
+            flexDirection="column"
+            justifyContent="center"
+            mt={100}
           >
             <Image
               src={warm}
@@ -242,19 +242,22 @@ const ColorAnalysis = () => {
             <Text fontWeight="bold" textAlign="left" ml="150px" mr={10} mt={4}>
               Your undertone is warm!
             </Text>
-            <Text textAlign="left" ml="150px" mr={10} mt={2}>Warm tones have the following characteristics:</Text>
-          
             <Text textAlign="left" ml="150px" mr={10} mt={2}>
-              Their undertone is yellow-based (while cool tones have a <br/>
+              Warm tones have the following characteristics:
+            </Text>
+
+            <Text textAlign="left" ml="150px" mr={10} mt={2}>
+              Their undertone is yellow-based (while cool tones have a <br />
               blue-based undertone)
             </Text>
             <Text textAlign="left" ml="150px" mr={10} mt={2}>
               Typically shine brighter in gold jewelry than in silver jewelry
             </Text>
             <Text textAlign="left" ml="150px" mr={10} mt={2}>
-              Are more harmonious with yellow-based colors such as yellow, <br/> 
-              orange, and green 
-              (rather than blue-based colors such as blue, <br/> purple, and pink)
+              Are more harmonious with yellow-based colors such as yellow,{" "}
+              <br />
+              orange, and green (rather than blue-based colors such as blue,{" "}
+              <br /> purple, and pink)
             </Text>
           </Box>
         )}

@@ -1,51 +1,138 @@
-import React from "react";
+import React, { useRef, useEffect, useState } from "react";
 import {
   Table,
-  Thead,
-  Tbody,
-  Tfoot,
-  Tr,
-  Th,
-  Td,
   TableCaption,
   TableContainer,
+  Tbody,
+  Tr,
+  SimpleGrid,
+  Box,
   Text,
+  Image,
+  Button,
   Card,
 } from "@chakra-ui/react";
 
-import product from "../products.json";
+import products from "../products.json";
 
 function Products(props) {
+  const [currentPage, setCurrentPage] = useState(1);
+  const productsPerPage = 16;
+
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProducts = products.slice(
+    indexOfFirstProduct,
+    indexOfLastProduct
+  );
+
+  const totalPages = Math.ceil(products.length / productsPerPage);
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+      setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }, 1);
+    }
+  };
+
+  const handlePrevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+      setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }, 1);
+    }
+  };
   return (
-    <Card>
-      <Text ml={5} fontSize="5xl" mt={5} mr={10}>
-        Products
-      </Text>
-      <TableContainer>
-        <Table variant="simple">
-          <Thead>
-            <Tr>
-              <Th>Product</Th>
-              <Th>Price</Th>
-              <Th>Description</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            {product.map((p) => (
-              <Tr>
-                <Td>{p.product_name}</Td>
-                <Td>{p.price}</Td>
-                <Td>
-                    <Text noOfLines={[1, 2, 3]} style={{ overflowWrap: 'break-word' }}>
-                    {`${p.product_description.substring(0, 85)}${p.product_description.length > 85 ? '...' : ''}`}
-                    </Text>
-                </Td>
-              </Tr>
-            ))}
-          </Tbody>
-        </Table>
-      </TableContainer>
-    </Card>
+    <TableContainer>
+      <Table>
+        <TableCaption>Products</TableCaption>
+        <Tbody>
+          <Tr>
+            <SimpleGrid
+              columns={{ base: 1, sm: 2, md: 3, lg: 4 }}
+              spacing={8}
+              p={4}
+            >
+              {currentProducts.map((product, index) => (
+                <Box key={index}>
+                  <Card
+                    maxW="xs"
+                    borderWidth="1px"
+                    borderRadius="lg"
+                    overflow="hidden"
+                    h="440px"
+                  >
+                    <Box
+                      maxH="200px"
+                      overflow="hidden"
+                      display="flex"
+                      justifyContent="center"
+                      mt={5}
+                    >
+                      <Image
+                        src={product.image_url}
+                        alt={product.name}
+                        maxH="100%"
+                        maxW="100%"
+                        objectFit="cover"
+                        borderRadius="17%"
+                      />
+                    </Box>
+                    <Box p="6">
+                      <Box d="flex" alignItems="baseline">
+                        <Text
+                          fontWeight="semibold"
+                          fontSize="lg"
+                          style={{
+                            whiteSpace: "normal",
+                            textOverflow: "ellipsis",
+                          }}
+                        >
+                          {product.product_name}
+                        </Text>
+                        <Text ml="2" color="gray.500">
+                          {product.price}
+                        </Text>
+                      </Box>
+                      <Text
+                        mt="2"
+                        color="gray.600"
+                        height="40px"
+                        style={{
+                          whiteSpace: "normal",
+                          textOverflow: "ellipsis",
+                        }}
+                      >
+                        {product.product_description
+                          .split(" ")
+                          .slice(0, 15)
+                          .join(" ")}{" "}
+                        ...
+                      </Text>
+                    </Box>
+                  </Card>
+                </Box>
+              ))}
+            </SimpleGrid>
+          </Tr>
+        </Tbody>
+      </Table>
+      <Box mt={4} textAlign="center">
+        <Button onClick={handlePrevPage} disabled={currentPage === 1}>
+          <Text>{"<"}</Text>
+        </Button>
+        <Button
+          ml={2}
+          onClick={handleNextPage}
+          disabled={currentPage === totalPages}
+        >
+          <Text>{">"}</Text>
+        </Button>
+      </Box>
+    </TableContainer>
   );
 }
 

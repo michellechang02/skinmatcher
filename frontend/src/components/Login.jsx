@@ -12,7 +12,7 @@ import {
   CloseButton,
 } from "@chakra-ui/react";
 import Cookies from "js-cookie";
-import config from '../config.json';
+import config from "../config.json";
 
 function Login(props) {
   const toast = useToast();
@@ -28,9 +28,10 @@ function Login(props) {
     // const storedToken = Cookies.get("supabase_auth_token");
     const storedUser = Cookies.get("supabase_user");
     if (storedUser !== undefined) {
-      console.log(storedUser);
       setUser(storedUser);
       navigate("/profile");
+    } else {
+      setUser(null);
     }
   }, []);
 

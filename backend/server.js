@@ -29,9 +29,13 @@ app.post("/login", async (req, res) => {
   });
 
   if (error) {
-    res.status(500).send(500);
+    if (error.message === "Invalid login credentials") {
+      res.sendStatus(400).send(error.message);
+    } else {
+      return res.sendStatus(500);
+    }
   } else {
-    res.status(200).send(data);
+    return res.status(200).send(data);
   }
 });
 
@@ -55,9 +59,9 @@ app.post("/signup", async (req, res) => {
       return;
     }
 
-    res.status(200).json({ message: "Signup Success", user });
+    return res.status(200).json({ message: "Signup Success", user });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    return res.status(500).json({ error: error.message });
   }
 });
 
@@ -68,7 +72,7 @@ app.get("/products", (req, res) => {
   try {
   } catch (e) {}
 
-  res.status(200).json({ message: "Fetched all products" });
+  return res.status(200).json({ message: "Fetched all products" });
 });
 
 // Get Recommended product
@@ -83,10 +87,10 @@ app.get("/recommended", async (req, res) => {
     .gte("price", price - 10)
     .lte("price", price + 10);
   if (error) {
-    res.status(500).json(error);
+    return res.status(500).json(error);
   }
 
-  res.status(200).json({ data });
+  return res.status(200).json({ data });
 });
 
 app.get("/search", async (req, res) => {
@@ -98,16 +102,18 @@ app.get("/search", async (req, res) => {
     .ilike("product_name", `%${searchTerm}%`);
   if (error) {
     res.status(500).json(error);
+    return;
   }
   res.status(200).json(data);
+  return;
 });
 
 app.post("/logout", async (req, res) => {
   const { error } = await supabase.auth.signOut();
   if (error) {
-    res.status(500).json(error);
+    return res.status(500).json(error);
   }
-  res.status(200);
+  return res.sendStatus(200);
 });
 
 app.post("/");
