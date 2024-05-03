@@ -264,20 +264,49 @@ const SkinTypeQuiz = () => {
                 </VStack>
               </CheckboxGroup>
             ) : (
-              <Box flex="1" height="100%">
-                {recommended && (
-                  <Image
-                    mt={5}
-                    ml={5}
-                    src={recommended.url}
-                    alt="Recommended Product"
-                  />
-                )}
+              <Box
+                position="absolute"
+                top="50%"
+                left="50%"
+                transform="translate(-50%, -50%)"
+                overflow="hidden"
+                width="800px"
+                height="600px"
+                borderRadius="10%"
+                borderWidth="1px"
+                borderColor="black"
+                display="flex"
+                flexDirection="column"
+                justifyContent="center"
+                mt={100}
+              >
+                <Text textAlign="left" ml="75px" mr={10} mt={6}>
+                  Your skin type is: <strong>Combination</strong>
+                </Text>
+                <Text ml="125px">
+                  • Skin feels oily in some areas - like the forehead, nose, and
+                  chin - but dry in other areas
+                </Text>
+                <Text
+                  fontWeight="bold"
+                  textAlign="left"
+                  ml="75px"
+                  mr={10}
+                  mt={4}
+                >
+                  Your recommended product:
+                </Text>
+                <Image
+                  src={recommended.url}
+                  ml="150px"
+                  width="60%"
+                  height="auto"
+                />
               </Box>
             )}
           </VStack>
         </CheckboxGroup>
-        {currentIndex < 8 && (
+        {currentIndex < 7 && (
           <Button
             position="absolute"
             colorScheme="blackAlpha"

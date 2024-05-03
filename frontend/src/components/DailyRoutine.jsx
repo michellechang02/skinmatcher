@@ -291,15 +291,37 @@ const DailyRoutine = () => {
                 </VStack>
               </CheckboxGroup>
             ) : (
-              <Box flex="1" height="100%">
-                {recommended && (
-                  <Image
-                    mt={5}
-                    ml={5}
-                    src={recommended.url}
-                    alt="Recommended Product"
-                  />
-                )}
+              <Box
+                position="absolute"
+                top="50%"
+                left="50%"
+                transform="translate(-50%, -50%)"
+                overflow="hidden"
+                width="800px"
+                height="600px"
+                borderRadius="10%"
+                borderWidth="1px"
+                borderColor="black"
+                display="flex"
+                flexDirection="column"
+                justifyContent="center"
+                mt={100}
+              >
+                <Text
+                  fontWeight="bold"
+                  textAlign="left"
+                  ml="75px"
+                  mr={10}
+                  mb={4}
+                >
+                  Our most recommended product for you:
+                </Text>
+                <Image
+                  src={recommended.url}
+                  ml="150px"
+                  width="60%"
+                  height="auto"
+                />
               </Box>
             )}
           </VStack>
