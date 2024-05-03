@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   ChakraProvider,
   Box,
@@ -11,10 +11,12 @@ import {
   Button,
   FormControl,
   FormLabel,
+  Badge
 } from "@chakra-ui/react";
 import home from "../home.json";
 import axios from "axios";
 import config from "../config.json";
+import products from "../products.json";
 
 function Compare(props) {
   const [product1, setProduct1] = useState("");
@@ -24,6 +26,8 @@ function Compare(props) {
   const [product1All, setProduct1All] = useState([]);
   const [product2All, setProduct2All] = useState([]);
   const [product3All, setProduct3All] = useState([]);
+
+  const [recommended, setRecommended] = useState([]);
 
   const [bestPrice, setBestPrice] = useState(10000);
   const [bestPriceIndex, setBestPriceIndex] = useState(0);
@@ -118,13 +122,35 @@ function Compare(props) {
     setProduct3("");
   };
 
+
+  useEffect(() => {
+    let rec = [];
+
+    while (rec.length < 5) {
+      let ix = Math.floor(Math.random() * 10);
+      if (!rec.includes(products[ix])) {
+        rec.push(products[ix]);
+      }
+    }
+    
+    console.log(rec);
+    setRecommended(rec);
+    console.log(recommended);
+  }, [])
+
   return (
     <div>
       <Text ml={5} fontSize="5xl" mt={5}>
         Compare
       </Text>
+      <HStack spacing="20px" ml={7}>
+      {recommended.map((rec) => {
+        return <Badge variant="solid">{rec.product_name}</Badge>; 
+      })}
+        
+      </HStack>
       <Flex justifyContent="space-around" alignItems="center">
-        <Box w="400px" h="100px" bg="white" mt={2} mb={1}>
+        <Box w="400px" h="100px" bg="white" mt={2}>
           <VStack spacing={2} align="stretch">
             <Text>Product 1:</Text>
             <HStack>
@@ -139,7 +165,7 @@ function Compare(props) {
             </HStack>
           </VStack>
         </Box>
-        <Box w="400px" h="100px" bg="white" mt={2} mb={1}>
+        <Box w="400px" h="100px" bg="white" mt={2}>
           <VStack spacing={2} align="stretch">
             <Text>Product 2:</Text>
             <HStack>
@@ -154,7 +180,7 @@ function Compare(props) {
             </HStack>
           </VStack>
         </Box>
-        <Box w="400px" h="100px" bg="white" mt={2} mb={1}>
+        <Box w="400px" h="100px" bg="white" mt={2}>
           <VStack spacing={2} align="stretch">
             <Text>Product 3:</Text>
             <HStack>
@@ -170,7 +196,7 @@ function Compare(props) {
           </VStack>
         </Box>
       </Flex>
-      <Flex justifyContent="space-around" alignItems="center">
+      <Flex justifyContent="space-around" alignItems="center" mb={10}>
         <Box w="400px" h="550px" bg="#F5F5F5" boxShadow="md" mt={2}>
           {!isEmpty(product1All) && (
             <div>
