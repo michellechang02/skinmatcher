@@ -38,7 +38,7 @@ function Navbar() {
 
     try {
       const response = await axios.get(
-        `${config.serverURL}/q=${encodedSearch}`
+        `${config.serverURL}/search?q=${encodedSearch}`
       );
       console.log(response.data[0]);
 
