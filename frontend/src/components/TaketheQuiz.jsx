@@ -129,7 +129,7 @@ function TaketheQuiz(props) {
         </Box>
         {quiz === 0 && (
           <>
-            <VStack spacing={5}>
+            <VStack spacing={5} ml={5}>
               <Box w="500px" h="270px" bg="#F5F5F5" borderRadius="lg">
                 <Text ml={5} fontSize="4xl">
                   Skin Type
@@ -257,7 +257,7 @@ function TaketheQuiz(props) {
               </Box>
             </VStack>
 
-            <VStack>
+            <VStack ml={5}>
               <Box w="500px" h="150px" bg="#F5F5F5" borderRadius="lg">
                 <Text ml={5} fontSize="4xl">
                   Looking for...
